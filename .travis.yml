@@ -15,7 +15,7 @@
 {
   "os": ["linux", "windows"],
   "language": "python",
-  "dist": "xenial",
+  "dist": ["xenial", "server-2016"],
   "python": ["3.6","3.8"],
   "branches": ["master", "dev"],
   "services": "docker",
