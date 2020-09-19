@@ -13,9 +13,9 @@
 #     - docker-compose run app sh -c "python manage.py test && flake8"
 
 {
-  "os": ["linux", "windows"],
+  "os": ["linux"],
   "language": "python",
-  "dist": ["xenial", "server-2016"],
+  "dist": ["xenial"],
   "python": ["3.6","3.8"],
   "branches": ["master", "dev"],
   "services": "docker",
