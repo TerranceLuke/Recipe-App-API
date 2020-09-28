@@ -1,10 +1,37 @@
-version: '3.8'
+version: "3.8"
+
 services:
+  db:
+    image: "postgres:13-alpine"
+    environment:
+      "POSTGRES_HOST": "postgresql"
+      "POSTGRES_DB": "recipe-app"
+      "POSTGRES_USER": "chef"
+      "POSTGRES_PASSWORD": "1secretpassword!"
+    ports:
+      - "5432:5432"
+
   app:
-    build: 
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=recipe-app
+      - DB_USER=chef
+      - DB_PASS=1secretpassword!
+      - DB_PORT=5432
+    expose:
+      - 5432
+    build:
       context: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py wait_for_db &&
+              python manage.py migrate &&
+              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./app:/app
     ports:
       - "8000:8000"
+      
